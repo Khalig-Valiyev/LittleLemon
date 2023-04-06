@@ -5,7 +5,10 @@ from .models import Menu,Booking
 from .serializers import bookingSerializer,menuSerializer
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.renderers import BrowsableAPIRenderer
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 # Create your views here.
 
 
@@ -40,3 +43,8 @@ class bookingView(APIView):
 class SingleMenuItemView(RetrieveUpdateDestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = menuSerializer
+    
+class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    renderer_classes = [BrowsableAPIRenderer]
